@@ -1,10 +1,30 @@
 package cerovecki.ljetnizadatak;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
 public class KontrolaUnosa {
+	
+	public static final String FORMAT_DATUMA = "dd.MM.yyyy";
+	
+	
+	public static Date unosDatuma (String poruka) {
+		
+		SimpleDateFormat df = new SimpleDateFormat(FORMAT_DATUMA);
+		while(true) {
+			
+			try {
+				return df.parse(JOptionPane.showInputDialog(poruka));
+			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(null, 
+						"Obavezan unos u formatu: " + FORMAT_DATUMA 
+						+ "\nPrimjer na današnjem datumu:" + df.format(new Date()));
+			}
+		}
+	}
 	
 	
 public static int unosInteger(String poruka) {
@@ -38,7 +58,7 @@ public static String unosStringa (String poruka) {
 	}
 }
 
-public static BigDecimal  unosBigDecimal() {
+public static BigDecimal  unosBigDecimal(String poruka) {
 	
 	double d;
 	
@@ -52,6 +72,25 @@ public static BigDecimal  unosBigDecimal() {
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, "Obavezan unos");
 		}
+	}
+}
+
+public static Byte unosByte(String poruka) {
+	byte b;
+	while (true) {
+
+		try {
+			b = Byte.parseByte(JOptionPane.showInputDialog(poruka));
+			if (b == 1 || b == 0) {
+				return b;
+			} else {
+				JOptionPane.showConfirmDialog(null, "Obavezano unijeti 1. ili 0.");
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, "Obavezano unijeti 1. ili 0.");
+		}
+
 	}
 }
 
