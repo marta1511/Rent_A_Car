@@ -107,12 +107,122 @@ public class Crud {
 			case 6:
 				break izlaz;
 				
-				
-
-			
-		}
-		}
-		}
-}
+			default:
+				JOptionPane.showMessageDialog(null, "Nevazeci broj!");
+				break;
+							}
+			}
+	}
 	
+	public static void Delete () {
+		veza = Baza.getConnection();
+		int dialogButton;
+		izlaz :while (true) {
+			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
+			switch (KontrolaUnosa.unosInteger("Unesite broj tablice u kojoj želite brisati podatke")) {
+			case 1:
+				try {
+					izraz = veza.prepareStatement("DELETE FROM iznajmljivanje WHERE sifra = ?");
+					while (true) {
+						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici iznajmljivanje koji želite obrisati"));
+						dialogButton = JOptionPane.showConfirmDialog(null, "Jeste li sigurni da želite obrisati ovaj podatak?", 
+								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
+						if (dialogButton == JOptionPane.YES_OPTION) {
+							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							break izlaz;
+						}
+					}
+				} catch (Exception e) {
+				
+					e.printStackTrace();
+				
+				}
+				break;
 
+			case 2:
+				try {
+					izraz = veza.prepareStatement("DELETE FROM klijent WHERE sifra = ?");
+					while (true) {
+						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici klijent koji želite obrisati"));
+						dialogButton = JOptionPane.showConfirmDialog(null, "Jeste li sigurni da želite obrisati ovaj podatak?", 
+								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
+						if (dialogButton == JOptionPane.YES_OPTION) {
+							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							break izlaz;
+						}
+					}
+				} catch (Exception e) {
+				
+					e.printStackTrace();
+				
+				}
+				break;
+			case 3:
+				try {
+					izraz = veza.prepareStatement("DELETE FROM zaposlenik WHERE sifra = ?");
+					while (true) {
+						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici zaposlenik koji želite obrisati"));
+						dialogButton = JOptionPane.showConfirmDialog(null, "Jeste li sigurni da želite obrisati ovaj podatak?", 
+								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
+						if (dialogButton == JOptionPane.YES_OPTION) {
+							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							break izlaz;
+						}
+					}
+				} catch (Exception e) {
+				
+					e.printStackTrace();
+				
+				}
+				break;
+			case 4: 
+				
+				try {
+					izraz = veza.prepareStatement("DELETE FROM vozilo WHERE sifra = ?");
+					while (true) {
+						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici vozilo koji želite obrisati"));
+						dialogButton = JOptionPane.showConfirmDialog(null, "Jeste li sigurni da želite obrisati ovaj podatak?", 
+								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
+						if (dialogButton == JOptionPane.YES_OPTION) {
+							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							break izlaz;
+						}
+					}
+				} catch (Exception e) {
+				
+					e.printStackTrace();
+				
+				}
+				break;
+				
+			case 5: 
+				try {
+					izraz = veza.prepareStatement("DELETE FROM model WHERE sifra = ?");
+					while (true) {
+						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici model koji želite obrisati"));
+						dialogButton = JOptionPane.showConfirmDialog(null, "Jeste li sigurni da želite obrisati ovaj podatak?", 
+								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
+						if (dialogButton == JOptionPane.YES_OPTION) {
+							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							break izlaz;
+						}
+					}
+				} catch (Exception e) {
+				
+					e.printStackTrace();
+				
+				}
+				break;
+				
+			case 6:
+				break izlaz;
+				
+			default:
+				JOptionPane.showMessageDialog(null, "Nevazeci broj!");
+				break;
+				
+			}
+			}
+	}
+	
+}
