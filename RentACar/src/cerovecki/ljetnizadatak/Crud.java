@@ -108,7 +108,7 @@ public class Crud {
 				break izlaz;
 				
 			default:
-				JOptionPane.showMessageDialog(null, "Nevazeci broj!");
+				JOptionPane.showMessageDialog(null, "Nevažeći broj! Ponovite unos.");
 				break;
 							}
 			}
@@ -218,7 +218,7 @@ public class Crud {
 				break izlaz;
 				
 			default:
-				JOptionPane.showMessageDialog(null, "Nevazeci broj!");
+				JOptionPane.showMessageDialog(null, "Nevažeći broj! Ponovite unos.");
 				break;
 				
 			}
