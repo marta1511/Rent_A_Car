@@ -3,6 +3,9 @@ package cerovecki.ljetnizadatak;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -10,6 +13,42 @@ public class Crud {
 
 	public static Connection veza;
 	public static PreparedStatement izraz;
+	
+	public static void Read (String poruka) {
+		
+		veza = Baza.getConnection();
+		int columnsNumber;
+		izlaz :while (true) {
+			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
+			switch (KontrolaUnosa.unosInteger("Unesite vroj tablice iz koje želite ćitati")) {
+			case 5:
+				try {
+					PreparedStatement izraz0 = veza.prepareStatement("SELECT *FROM model");
+					ResultSet rs = izraz0.executeQuery();
+					ResultSetMetaData rsmd = rs.getMetaData();
+					columnsNumber = rsmd.getColumnCount();
+					
+					while (rs.next()) {
+						for (int i = 1; i <= columnsNumber; i++) {
+							if (i > 1)
+								System.out.print(" | ");
+							System.out.print(rs.getString(i));
+						}
+						
+					}
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+				break;
+
+			
+			}
+		}
+	
 	
 	public static void Insert () {
 		 
