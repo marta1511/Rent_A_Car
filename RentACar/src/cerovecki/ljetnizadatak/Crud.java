@@ -20,33 +20,64 @@ public class Crud {
 		int columnsNumber;
 		izlaz :while (true) {
 			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
-			switch (KontrolaUnosa.unosInteger("Unesite vroj tablice iz koje želite ćitati")) {
-			case 5:
+			switch (KontrolaUnosa.unosInteger("Unesite vroj tablice iz koje želite čitati")) {
+			case 1:
 				try {
-					PreparedStatement izraz0 = veza.prepareStatement("SELECT *FROM model");
-					ResultSet rs = izraz0.executeQuery();
-					ResultSetMetaData rsmd = rs.getMetaData();
-					columnsNumber = rsmd.getColumnCount();
-					
-					while (rs.next()) {
-						for (int i = 1; i <= columnsNumber; i++) {
-							if (i > 1)
-								System.out.print(" | ");
-							System.out.print(rs.getString(i));
-						}
-						
-					}
-					rs.close();
-				} catch (SQLException e) {
+					PrikazTablice.prikazTablice("SELECT *FROM iznajmljivanje");
+					JOptionPane.showConfirmDialog(null, "Tablica prikazana");
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
-			}
-
 				break;
+			case 2:
+				try {
+					PrikazTablice.prikazTablice("SELECT *FROM klijent");
+					JOptionPane.showConfirmDialog(null, "Tablica prikazana");
+				
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
+				
+			case 3:
+				try {
+					PrikazTablice.prikazTablice("SELECT *FROM zaposlenik");
+					JOptionPane.showConfirmDialog(null, "Tablica prikazana");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
+				
+				case 4:
+					try {
+						PrikazTablice.prikazTablice("SELECT *FROM vozilo");
+						JOptionPane.showConfirmDialog(null, "Tablica prikazana");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					break;
+					
+				case 5:
+					try {
+						PrikazTablice.prikazTablice("SELECT *FROM model");
+						JOptionPane.showConfirmDialog(null, "Tablica prikazana");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					break;
+				case 6:
+					break izlaz;
+					
+				default:
+					JOptionPane.showMessageDialog(null, "Nevažeći broj! Ponovite unos.");
+					break;
+				
 
-			
 			}
+			}
+			
 		}
 	
 	
