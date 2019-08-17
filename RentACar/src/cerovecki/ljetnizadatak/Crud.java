@@ -14,13 +14,75 @@ public class Crud {
 	public static Connection veza;
 	public static PreparedStatement izraz;
 	
+	public static void Update() {
+		
+		veza = Baza.getConnection();
+		int sifra;
+		izlaz: while (true) {
+			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
+			switch (KontrolaUnosa.unosInteger("Unesite broj tablice u kojoj želite napraviti promjenu ")) {
+			case 1:
+				try {
+					PrikazTablice.prikazTablice("SELECT *FROM iznajmljivanje");
+					sifra = KontrolaUnosa.unosInteger("Unesite šifru stavke koju želite promjeniti");
+					izraz = veza.prepareStatement("UPDATE iznajmljivanje");
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				break;
+			case 2:
+				try {
+					PrikazTablice.prikazTablice("SELECT *FROM klijent");
+					sifra = KontrolaUnosa.unosInteger("Unesite šifru klijenta kod kojeg želite napraviti promjenu");
+					izraz = veza.prepareStatement("UPDATE klijent SET ime = ? WHERE sifra = ?");
+					izraz.setInt(1, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novo ime klijenta"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					PreparedStatement izraz1 = veza.prepareStatement("UPDATE klijent SET prezime = ? WHERE sifra = ?");
+					
+					izraz1.setInt(1, sifra);
+					izraz1.setString(1, KontrolaUnosa.unosStringa("Unesite novo prezime klijenta"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					PreparedStatement izraz2 = veza.prepareStatement("UPDATE klijent SET email = ? WHERE sifra = ?");
+					izraz2.setInt(1, sifra);
+					izraz2.setString(1, KontrolaUnosa.unosStringa("Unesite novi email klijenta"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					PreparedStatement izraz3 = veza.prepareStatement("UPDATE klijent SET telefon = ? WHERE sifra = ?");
+					izraz3.setInt(1, sifra);
+					izraz3.setString(1, KontrolaUnosa.unosStringa("Unesite novi kontakt broj klijenta"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					PreparedStatement izraz4 = veza.prepareStatement("UPDATE klijent SET broj_vozacke = ? WHERE sifra = ?");
+					izraz4.setInt(1, sifra);
+					izraz4.setString(1, KontrolaUnosa.unosStringa("Unesite novi broj vozačke dozvole klijenta"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					System.out.println("\n\n");
+					PrikazTablice.prikazTablice("SELECT *FRIM klijent");
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+		
+	}
+	
 	public static void Read (String poruka) {
 		
 		veza = Baza.getConnection();
 		int columnsNumber;
 		izlaz :while (true) {
 			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
-			switch (KontrolaUnosa.unosInteger("Unesite vroj tablice iz koje želite čitati")) {
+			switch (KontrolaUnosa.unosInteger("Unesite broj tablice iz koje želite čitati")) {
 			case 1:
 				try {
 					PrikazTablice.prikazTablice("SELECT *FROM iznajmljivanje");
@@ -90,6 +152,7 @@ public class Crud {
 			switch (KontrolaUnosa.unosInteger("Unesite broj tablice u kojoj želite napraviti unos")) {
 			case 1:
 				try {
+					
 					izraz = veza.prepareStatement("INSERT INTO iznajmljivanje"
 							+ " (datum_preuzimanja, datum_povratka, broj_ugovora, ukupan_iznos_najma, klijent, vozilo, zaposlenik)"
 							+ " VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -102,7 +165,9 @@ public class Crud {
 					izraz.setInt(6, KontrolaUnosa.unosInteger("Unesite šifru vozila"));
 					izraz.setInt(7, KontrolaUnosa.unosInteger("Unesite šifru zaposlenika"));
 					JOptionPane.showConfirmDialog(null, "Uspješno uneseno (" + izraz.executeUpdate() + ")");
-					
+					System.out.println("");
+					PrikazTablice.prikazTablice("SELECT * FROM iznajmljivanje");
+					JOptionPane.showMessageDialog(null, "Tablica iznajmljivanje prikazana!");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -111,6 +176,7 @@ public class Crud {
 				
 			case 2:
 				try {
+					
 					izraz = veza.prepareStatement("INSERT INTO klijent"
 							+ "(ime, prezime, email, telefon, broj_vozacke)"
 							+ "VALUES(?,?,?,?,?)");
@@ -120,6 +186,9 @@ public class Crud {
 					izraz.setString(4, KontrolaUnosa.unosStringa("Unesite broj telefona"));
 					izraz.setString(5, KontrolaUnosa.unosStringa("Unesite broj vozačke dozvole"));
 					JOptionPane.showConfirmDialog(null, "Uspješno uneseno (" + izraz.executeUpdate() + ")");
+					System.out.println("");
+					PrikazTablice.prikazTablice("SELECT * FROM klijent");
+					JOptionPane.showMessageDialog(null, "Tablica klijent prikazana!");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -127,6 +196,7 @@ public class Crud {
 				
 			case 3:
 				try {
+					
 					izraz = veza.prepareStatement("INSERT INTO zaposlenik"
 							+ "(ime, prezime, telefon, iban)"
 							+ "VALUES (?,?,?,?)");
@@ -135,6 +205,9 @@ public class Crud {
 					izraz.setString(3, KontrolaUnosa.unosStringa("Unesite broj telefona zaposlenika"));
 					izraz.setString(4, KontrolaUnosa.unosStringa("Unesite broj računa zaposlenika"));
 					JOptionPane.showConfirmDialog(null, "Uspješno uneseno (" + izraz.executeUpdate() + ")");
+					System.out.println("");
+					PrikazTablice.prikazTablice("SELECT * FROM zaposlenik");
+					JOptionPane.showMessageDialog(null, "Tablica klijent zaposlenik!");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -142,6 +215,7 @@ public class Crud {
 				
 			case 4:
 				try {
+					PrikazTablice.prikazTablice("SELECT * FROM vozilo");
 					izraz = veza.prepareStatement("INSERT INTO vozilo"
 							+ "(registracijska_oznaka, datum_registracije, model)"
 							+ "VALUES (?,?,?)");
@@ -149,6 +223,9 @@ public class Crud {
 					//izraz.setDate(2, KontrolaUnosa.unosDatum("Unesite datum registracije vozila"));
 					izraz.setInt(3, KontrolaUnosa.unosInteger("Unesite šifru modela vozila"));
 					JOptionPane.showConfirmDialog(null, "Uspješno uneseno (" + izraz.executeUpdate() + ")");
+					System.out.println("");
+					PrikazTablice.prikazTablice("SELECT * FROM vozilo");
+					JOptionPane.showMessageDialog(null, "Tablica vozilo prikazana!");
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -157,6 +234,7 @@ public class Crud {
 				
 			case 5:
 				try {
+					PrikazTablice.prikazTablice("SELECT * FROM model");
 					izraz = veza.prepareStatement("INSERT INTO model"
 				+ "(naziv, marka, tip,broj_sjedala, vrsta_motora, automatik, godina_proizvodnje,cijena_po_danu)"
 							+ "VALUES(?,?,?,?,?,?,?)");
@@ -168,6 +246,9 @@ public class Crud {
 					//izraz.setDate(6, "Unesite godinu proizvodnje");
 					izraz.setBigDecimal(7, KontrolaUnosa.unosBigDecimal("Unesite cijenu vozila po danu"));
 					JOptionPane.showConfirmDialog(null, "Uspješno uneseno (" + izraz.executeUpdate() + ")");
+					System.out.println("");
+					PrikazTablice.prikazTablice("SELECT * FROM model");
+					JOptionPane.showMessageDialog(null, "Tablica klijent prikazana!");
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -199,6 +280,9 @@ public class Crud {
 								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
 						if (dialogButton == JOptionPane.YES_OPTION) {
 							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							System.out.println("");
+							PrikazTablice.prikazTablice("SELECT * FROM iznajmljivanje");
+							JOptionPane.showMessageDialog(null, "Tablica iznajmljivanje prikazana!");
 							break izlaz;
 						}
 					}
@@ -211,6 +295,7 @@ public class Crud {
 
 			case 2:
 				try {
+					PrikazTablice.prikazTablice("SELECT *FROM klijent");
 					izraz = veza.prepareStatement("DELETE FROM klijent WHERE sifra = ?");
 					while (true) {
 						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici klijent koji želite obrisati"));
@@ -218,6 +303,10 @@ public class Crud {
 								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
 						if (dialogButton == JOptionPane.YES_OPTION) {
 							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							System.out.println("");
+							PrikazTablice.prikazTablice("SELECT * FROM klijent");
+							JOptionPane.showMessageDialog(null, "Tablica klijent prikazana!");
+							
 							break izlaz;
 						}
 					}
@@ -229,6 +318,7 @@ public class Crud {
 				break;
 			case 3:
 				try {
+					PrikazTablice.prikazTablice("SELECT *FROM zaposlenik");
 					izraz = veza.prepareStatement("DELETE FROM zaposlenik WHERE sifra = ?");
 					while (true) {
 						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici zaposlenik koji želite obrisati"));
@@ -236,6 +326,9 @@ public class Crud {
 								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
 						if (dialogButton == JOptionPane.YES_OPTION) {
 							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							System.out.println("");
+							PrikazTablice.prikazTablice("SELECT * FROM zaposlenik");
+							JOptionPane.showMessageDialog(null, "Tablica zaposlenik prikazana!");
 							break izlaz;
 						}
 					}
@@ -255,6 +348,9 @@ public class Crud {
 								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
 						if (dialogButton == JOptionPane.YES_OPTION) {
 							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							System.out.println("");
+							PrikazTablice.prikazTablice("SELECT * FROM vozilo");
+							JOptionPane.showMessageDialog(null, "Tablica vozilo prikazana!");
 							break izlaz;
 						}
 					}
@@ -267,6 +363,7 @@ public class Crud {
 				
 			case 5: 
 				try {
+					PrikazTablice.prikazTablice("SELECT *FROM model");
 					izraz = veza.prepareStatement("DELETE FROM model WHERE sifra = ?");
 					while (true) {
 						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici model koji želite obrisati"));
@@ -274,6 +371,9 @@ public class Crud {
 								"Brisanje podatka",JOptionPane.YES_NO_OPTION);
 						if (dialogButton == JOptionPane.YES_OPTION) {
 							JOptionPane.showMessageDialog(null,  "Uspješno obrisano ("+ izraz.executeUpdate() + ")");
+							System.out.println("");
+							PrikazTablice.prikazTablice("SELECT * FROM model");
+							JOptionPane.showMessageDialog(null, "Tablica model prikazana!");
 							break izlaz;
 						}
 					}
