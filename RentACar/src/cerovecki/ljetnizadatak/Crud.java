@@ -190,7 +190,7 @@ public class Crud {
 					PrikazTablice.prikazTablice("SELECT * FROM klijent");
 					JOptionPane.showMessageDialog(null, "Tablica klijent prikazana!");
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Ne možete obrisati odabrani podatak! Negdje se koristi odabrani podatak");
 				}
 				break;
 				
@@ -209,7 +209,7 @@ public class Crud {
 					PrikazTablice.prikazTablice("SELECT * FROM zaposlenik");
 					JOptionPane.showMessageDialog(null, "Tablica klijent zaposlenik!");
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Ne možete obrisati odabrani podatak! Negdje se koristi odabrani podatak");
 				}
 				break;
 				
@@ -228,7 +228,7 @@ public class Crud {
 					JOptionPane.showMessageDialog(null, "Tablica vozilo prikazana!");
 					
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Ne možete obrisati odabrani podatak! Negdje se koristi odabrani podatak");
 				}
 				break;
 				
@@ -251,7 +251,7 @@ public class Crud {
 					JOptionPane.showMessageDialog(null, "Tablica klijent prikazana!");
 					
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Ne možete obrisati odabrani podatak! Negdje se koristi odabrani podatak");
 				}
 				break;
 				
