@@ -14,6 +14,8 @@ public class Crud {
 	public static Connection veza;
 	public static PreparedStatement izraz;
 	
+	
+	
 	public static void Update() {
 		
 		veza = Baza.getConnection();
@@ -40,25 +42,26 @@ public class Crud {
 					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novo ime klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
-					PreparedStatement izraz1 = veza.prepareStatement("UPDATE klijent SET prezime = ? WHERE sifra = ?");
+				 izraz = veza.prepareStatement("UPDATE klijent SET prezime = ? WHERE sifra = ?");
 					
-					izraz1.setInt(1, sifra);
-					izraz1.setString(1, KontrolaUnosa.unosStringa("Unesite novo prezime klijenta"));
+					izraz.setInt(1, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novo prezime klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
-					PreparedStatement izraz2 = veza.prepareStatement("UPDATE klijent SET email = ? WHERE sifra = ?");
-					izraz2.setInt(1, sifra);
-					izraz2.setString(1, KontrolaUnosa.unosStringa("Unesite novi email klijenta"));
+					
+					 izraz = veza.prepareStatement("UPDATE klijent SET email = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setString(2, KontrolaUnosa.unosStringa("Unesite novi email klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
-					PreparedStatement izraz3 = veza.prepareStatement("UPDATE klijent SET telefon = ? WHERE sifra = ?");
-					izraz3.setInt(1, sifra);
-					izraz3.setString(1, KontrolaUnosa.unosStringa("Unesite novi kontakt broj klijenta"));
+					izraz = veza.prepareStatement("UPDATE klijent SET telefon = ? WHERE sifra = ?");
+					izraz.setInt(1, sifra);
+					izraz.setString(3, KontrolaUnosa.unosStringa("Unesite novi kontakt broj klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
-					PreparedStatement izraz4 = veza.prepareStatement("UPDATE klijent SET broj_vozacke = ? WHERE sifra = ?");
-					izraz4.setInt(1, sifra);
-					izraz4.setString(1, KontrolaUnosa.unosStringa("Unesite novi broj vozačke dozvole klijenta"));
+					izraz = veza.prepareStatement("UPDATE klijent SET broj_vozacke = ? WHERE sifra = ?");
+					izraz.setInt(1, sifra);
+					izraz.setString(4, KontrolaUnosa.unosStringa("Unesite novi broj vozačke dozvole klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
 					System.out.println("\n\n");
@@ -207,7 +210,7 @@ public class Crud {
 					JOptionPane.showConfirmDialog(null, "Uspješno uneseno (" + izraz.executeUpdate() + ")");
 					System.out.println("");
 					PrikazTablice.prikazTablice("SELECT * FROM zaposlenik");
-					JOptionPane.showMessageDialog(null, "Tablica klijent zaposlenik!");
+					JOptionPane.showMessageDialog(null, "Tablica zaposlenik prikazana!");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
