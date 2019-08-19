@@ -190,7 +190,7 @@ public class Crud {
 					PrikazTablice.prikazTablice("SELECT * FROM klijent");
 					JOptionPane.showMessageDialog(null, "Tablica klijent prikazana!");
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Ne možete obrisati odabrani podatak! Negdje se koristi odabrani podatak");
+					e.printStackTrace();
 				}
 				break;
 				
@@ -209,7 +209,7 @@ public class Crud {
 					PrikazTablice.prikazTablice("SELECT * FROM zaposlenik");
 					JOptionPane.showMessageDialog(null, "Tablica klijent zaposlenik!");
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Ne možete obrisati odabrani podatak! Negdje se koristi odabrani podatak");
+					e.printStackTrace();
 				}
 				break;
 				
@@ -251,7 +251,7 @@ public class Crud {
 					JOptionPane.showMessageDialog(null, "Tablica klijent prikazana!");
 					
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Ne možete obrisati odabrani podatak! Negdje se koristi odabrani podatak");
+					e.printStackTrace();
 				}
 				break;
 				
@@ -273,6 +273,7 @@ public class Crud {
 			switch (KontrolaUnosa.unosInteger("Unesite broj tablice u kojoj želite brisati podatke")) {
 			case 1:
 				try {
+					PrikazTablice.prikazTablice("SELECT *FROM iznajmljivanje");
 					izraz = veza.prepareStatement("DELETE FROM iznajmljivanje WHERE sifra = ?");
 					while (true) {
 						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici iznajmljivanje koji želite obrisati"));
@@ -312,8 +313,8 @@ public class Crud {
 					}
 				} catch (Exception e) {
 				
-					e.printStackTrace();
-				
+					JOptionPane.showMessageDialog(null, "Nije moguće obrisati podatak pod ovom šifrom. Podatak se negdje koristi!");
+					
 				}
 				break;
 			case 3:
@@ -334,13 +335,15 @@ public class Crud {
 					}
 				} catch (Exception e) {
 				
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Nije moguće obrisati podatak pod ovom šifrom. Podatak se negdje koristi!");
+					
 				
 				}
 				break;
 			case 4: 
 				
 				try {
+					PrikazTablice.prikazTablice("SELECT *FROM vozilo");
 					izraz = veza.prepareStatement("DELETE FROM vozilo WHERE sifra = ?");
 					while (true) {
 						izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite šifru reda u tablici vozilo koji želite obrisati"));
@@ -356,7 +359,8 @@ public class Crud {
 					}
 				} catch (Exception e) {
 				
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Nije moguće obrisati podatak pod ovom šifrom. Podatak se negdje koristi!");
+					
 				
 				}
 				break;
@@ -379,7 +383,8 @@ public class Crud {
 					}
 				} catch (Exception e) {
 				
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Nije moguće obrisati podatak pod ovom šifrom. Podatak se negdje koristi!");
+					
 				
 				}
 				break;
