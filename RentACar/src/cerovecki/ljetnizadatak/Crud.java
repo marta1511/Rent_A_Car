@@ -79,7 +79,7 @@ public class Crud {
 	public static void Read (String poruka) {
 		
 		veza = Baza.getConnection();
-		int columnsNumber;
+		
 		izlaz :while (true) {
 			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
 			switch (KontrolaUnosa.unosInteger("Unesite broj tablice iz koje želite čitati")) {
