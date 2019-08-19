@@ -80,7 +80,7 @@ public class Crud {
 		
 		veza = Baza.getConnection();
 		
-		izlaz :while (true) {
+		izlaz: while (true) {
 			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
 			switch (KontrolaUnosa.unosInteger("Unesite broj tablice iz koje želite čitati")) {
 			case 1:
@@ -147,7 +147,7 @@ public class Crud {
 		 
 		veza = Baza.getConnection();
 		
-		izlaz :while (true) {
+		izlaz: while (true) {
 			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
 			switch (KontrolaUnosa.unosInteger("Unesite broj tablice u kojoj želite napraviti unos")) {
 			case 1:
@@ -268,7 +268,7 @@ public class Crud {
 	public static void Delete () {
 		veza = Baza.getConnection();
 		int dialogButton;
-		izlaz :while (true) {
+		izlaz: while (true) {
 			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
 			switch (KontrolaUnosa.unosInteger("Unesite broj tablice u kojoj želite brisati podatke")) {
 			case 1:
