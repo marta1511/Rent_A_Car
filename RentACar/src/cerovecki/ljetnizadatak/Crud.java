@@ -1,9 +1,12 @@
 package cerovecki.ljetnizadatak;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import javax.swing.JOptionPane;
+
+
 
 public class Crud {
 
@@ -118,6 +121,62 @@ public class Crud {
 				}
 				break;
 				
+			case 4: 
+				try {
+					 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				break;
+				
+			case 5:
+				try {
+					PrikazTablice.prikazTablice("SELECT *FROM model");
+					sifra = KontrolaUnosa.unosInteger("Unesite šifru modela kod kojeg želite napraviti promjenu");
+					izraz = veza.prepareStatement("UPDATE model SET naziv = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novi naziv modela"));
+					JOptionPane.showInternalMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() +")");
+					
+					izraz=veza.prepareStatement("UPDATE model SET marka = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novu marku modela"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno ("+ izraz.executeUpdate() +")");
+					
+					izraz = veza.prepareStatement("UPDATE model SET tip = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novi tip motora ovog modela"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno ("+ izraz.executeUpdate() + ")");
+					
+					izraz=veza.prepareStatement("UPDATE model SET broj_sjedala = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setInt(1, KontrolaUnosa.unosInteger("Unesite broj sjedala ovog modela"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno + (" + izraz.executeUpdate() + ")");
+					
+					izraz = veza.prepareStatement("UPDATE model SET vrsta_motora = ? WHERE sifra =?");
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite vrstu motora ovog modela: diesel ili benzin"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno + (" + izraz.executeUpdate() + ")");
+					
+					izraz = veza.prepareStatement("UPDATE model SET automatik = ? WHERE sifra =?");
+					izraz.setInt(2, sifra);
+					izraz.setByte(1, KontrolaUnosa.unosByte("Unesite novu vrijednost za mjenjač: 1 za automatik ili 0 za manual"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno + (" + izraz.executeUpdate() + ")");
+					
+					//ovdje dodati godinu
+					izraz = veza.prepareStatement("UPDATE model SET godina_proizvodnje = ? WHERE sifra = ?");
+				
+					
+					izraz = veza.prepareStatement("UPDATE model SET cijena_po_danu = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setBigDecimal(1, KontrolaUnosa.unosBigDecimal("Unesite novu cijenu vozila po danu"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno + (" + izraz.executeUpdate() + ")");
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
 			default:
 				break;
 			}
@@ -295,7 +354,7 @@ public class Crud {
 					izraz.setString(2, KontrolaUnosa.unosStringa("Unesite marku vozila"));
 					izraz.setInt(3, KontrolaUnosa.unosInteger("Unesite Broj sjededala"));
 					izraz.setString(4, KontrolaUnosa.unosStringa("Unesite vrstu motora: (Disele ili Benzin)"));
-					izraz.setByte(5, KontrolaUnosa.unosByte("Za automatik unesite 1, za manual unesite 0"));
+					izraz.setByte(5, KontrolaUnosa.unosByte("Za vrstu mjenjača automatik unesite 1, za manual unesite 0"));
 					//izraz.setDate(6, "Unesite godinu proizvodnje");
 					izraz.setBigDecimal(7, KontrolaUnosa.unosBigDecimal("Unesite cijenu vozila po danu"));
 					JOptionPane.showConfirmDialog(null, "Uspješno uneseno (" + izraz.executeUpdate() + ")");
