@@ -1,11 +1,7 @@
 package cerovecki.ljetnizadatak;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -20,6 +16,7 @@ public class Crud {
 		
 		veza = Baza.getConnection();
 		int sifra;
+		int rez;
 		izlaz: while (true) {
 			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
 			switch (KontrolaUnosa.unosInteger("Unesite broj tablice u kojoj želite napraviti promjenu ")) {
@@ -38,40 +35,89 @@ public class Crud {
 					PrikazTablice.prikazTablice("SELECT *FROM klijent");
 					sifra = KontrolaUnosa.unosInteger("Unesite šifru klijenta kod kojeg želite napraviti promjenu");
 					izraz = veza.prepareStatement("UPDATE klijent SET ime = ? WHERE sifra = ?");
-					izraz.setInt(1, sifra);
+					izraz.setInt(2, sifra);
 					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novo ime klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
 				 izraz = veza.prepareStatement("UPDATE klijent SET prezime = ? WHERE sifra = ?");
 					
-					izraz.setInt(1, sifra);
+					izraz.setInt(2, sifra);
 					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novo prezime klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
 					
 					 izraz = veza.prepareStatement("UPDATE klijent SET email = ? WHERE sifra = ?");
 					izraz.setInt(2, sifra);
-					izraz.setString(2, KontrolaUnosa.unosStringa("Unesite novi email klijenta"));
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novi email klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
 					izraz = veza.prepareStatement("UPDATE klijent SET telefon = ? WHERE sifra = ?");
-					izraz.setInt(1, sifra);
-					izraz.setString(3, KontrolaUnosa.unosStringa("Unesite novi kontakt broj klijenta"));
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novi kontakt broj klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
 					izraz = veza.prepareStatement("UPDATE klijent SET broj_vozacke = ? WHERE sifra = ?");
-					izraz.setInt(1, sifra);
-					izraz.setString(4, KontrolaUnosa.unosStringa("Unesite novi broj vozačke dozvole klijenta"));
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novi broj vozačke dozvole klijenta"));
 					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					
-					System.out.println("\n\n");
-					PrikazTablice.prikazTablice("SELECT *FRIM klijent");
+					rez = izraz.executeUpdate() + izraz.executeUpdate() + izraz.executeUpdate() + izraz.executeUpdate() + izraz.executeUpdate() + izraz.executeUpdate();
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + rez + ")");
+
+
+
+					
+					System.out.println("");
+					PrikazTablice.prikazTablice("SELECT *FROM klijent");
+					JOptionPane.showMessageDialog(null, "Tablica prikazana!");
 					
 				} catch (Exception e) {
-					// TODO: handle exception
+					e.printStackTrace();
 				}
 				break;
 
+			case 3:
+				try {
+					PrikazTablice.prikazTablice("SELECT *FROM zaposlenik");
+					sifra = KontrolaUnosa.unosInteger("Unesite šifru zaposlenika kod kojeg želite napraviti promjenu");
+					izraz = veza.prepareStatement("UPDATE zaposlenik SET ime = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novo ime zaposlenika"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					izraz = veza.prepareStatement("UPDATE zaposlenik SET prezime = ? WHERE sifra = ?");
+					
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novo prezime zaposlenik"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					
+					izraz = veza.prepareStatement("UPDATE zaposlenik SET telefon = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novi broj telefona zaposlenika"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					
+					izraz = veza.prepareStatement("UPDATE zaposlenik SET iban = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novi broj računa zaposlenika"));
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+					
+					rez = izraz.executeUpdate() + izraz.executeUpdate() + izraz.executeUpdate() + izraz.executeUpdate() + izraz.executeUpdate() + izraz.executeUpdate();
+					JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + rez + ")");
+
+
+
+					
+					System.out.println("");
+					PrikazTablice.prikazTablice("SELECT *FROM zaposlenik");
+					JOptionPane.showMessageDialog(null, "Tablica prikazana!");
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
+				
 			default:
 				break;
 			}
@@ -217,13 +263,17 @@ public class Crud {
 				break;
 				
 			case 4:
+				
 				try {
 					PrikazTablice.prikazTablice("SELECT * FROM vozilo");
 					izraz = veza.prepareStatement("INSERT INTO vozilo"
 							+ "(registracijska_oznaka, datum_registracije, model)"
 							+ "VALUES (?,?,?)");
 					izraz.setString(1, KontrolaUnosa.unosStringa("Unesite registraciju vozila"));
-					//izraz.setDate(2, KontrolaUnosa.unosDatum("Unesite datum registracije vozila"));
+					
+					
+					
+				   // izraz.setDate(2, KontrolaUnosa.unosDatum("Unesi datum registracije vozila");
 					izraz.setInt(3, KontrolaUnosa.unosInteger("Unesite šifru modela vozila"));
 					JOptionPane.showConfirmDialog(null, "Uspješno uneseno (" + izraz.executeUpdate() + ")");
 					System.out.println("");
