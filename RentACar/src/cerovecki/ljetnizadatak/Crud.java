@@ -1,10 +1,14 @@
 package cerovecki.ljetnizadatak;
 
 
+
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 
 import javax.swing.JOptionPane;
+
+
 
 
 
@@ -20,12 +24,19 @@ public class Crud {
 		veza = Baza.getConnection();
 		int sifra;
 		int rez;
+		
+		
 		izlaz: while (true) {
 			System.out.println("\n1. iznajmljivanje\n2. klijent\n3. zaposlenik\n4. vozilo\n5. model\n6. izlaz\n");
 			switch (KontrolaUnosa.unosInteger("Unesite broj tablice u kojoj želite napraviti promjenu ")) {
 			case 1:
 				try {
-					PrikazTablice.prikazTablice("SELECT *FROM iznajmljivanje");
+					PrikazTablice.prikazTablice("SELECT a.broj_ugovora, a.datum_povratka, a.datum_preuzimanja, a.ukupan_iznos_najma as informacije iznajmljivanja\r\n" 
+							+"concat (b.ime, b.prezime) AS klijent\r\n" 
+							+"concat (c.marka, c.broj_registracije, c.broj_mjesta) AS vozilo\r\n"  
+							+"FROM iznajmljivanje a INNER JOIN klijent b ON b.sifra=a.klijent\r\n" 
+							+"INNER JOIN  vozilo c ON c.sifra=a.vozilo");
+					
 					sifra = KontrolaUnosa.unosInteger("Unesite šifru stavke koju želite promjeniti");
 					izraz = veza.prepareStatement("UPDATE iznajmljivanje");
 				} catch (Exception e) {
@@ -123,6 +134,19 @@ public class Crud {
 				
 			case 4: 
 				try {
+					 PrikazTablice.prikazTablice("SELECT *FROM vozilo");
+					//PrikazTablice.prikazTablice("SELECT a.registracijska_oznaka, a.datum_registracije, concat(b.naziv,' ', b.marka) as vozilo \r\n"
+						//	+ "from vozilo a INNER JOIN model b on b.sifra=a.model");
+					 	sifra = KontrolaUnosa.unosInteger("Unesite šifru vozila kod kojeg želite napraviti promjenu");
+						izraz = veza.prepareStatement("UPDATE vozilo SET registracijaska_oznaka = ? WHERE sifra = ?");
+						izraz.setInt(2, sifra);
+						izraz.setString(1, KontrolaUnosa.unosStringa("Unesite novu registracijsku oznaku vozila"));
+						JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
+						
+						izraz =veza.prepareStatement("UPDATE vozilo SET datum_registracije = ? WHERE sifra =?");
+						izraz.setInt(2, sifra);
+						//izraz.setDate(1, KontrolaUnosa.unosDatum("Unesite datum registracije"));
+						JOptionPane.showMessageDialog(null, "Uspješno promjenjeno (" + izraz.executeUpdate() + ")");
 					 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -166,6 +190,8 @@ public class Crud {
 					
 					//ovdje dodati godinu
 					izraz = veza.prepareStatement("UPDATE model SET godina_proizvodnje = ? WHERE sifra = ?");
+					izraz.setInt(2, sifra);
+					
 				
 					
 					izraz = veza.prepareStatement("UPDATE model SET cijena_po_danu = ? WHERE sifra = ?");
@@ -177,6 +203,8 @@ public class Crud {
 					e.printStackTrace();
 				}
 				break;
+				
+			
 			default:
 				break;
 			}
